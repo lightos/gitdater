@@ -1,65 +1,82 @@
 # gitdater
-Small Python script that recursively runs "git pull" on all folders containing a ".git" directory. To use, just place in the root folder containing the GIT projects you would like to update and run "python gitdater.py".
 
+A Python script that recursively finds and updates multiple Git repositories. Ideal for maintaining multiple pentest tools or other Git-based projects.
+
+## Warning
+
+Use this project at your own risk. The author is not responsible for any data loss, repository corruption, or other issues. Ensure you have proper backups before using this script.
+
+## Features
+
+- Recursively finds and updates all Git repositories in a directory
+- Parallel repository updates for speed (optional)
+- Automatically handles merge conflicts with interactive prompts
+- Command-line arguments for customization
+- Verbose output option for debugging
+
+## Requirements
+
+- Python 3.6+
+- Git installed and in PATH
+
+## Usage
+
+Basic usage:
+
+```bash
+python3 gitdater.py
+```
+
+Advanced options:
+
+```bash
+python3 gitdater.py [-h] [-d DIRECTORY] [-p] [-m MAX_WORKERS] [-v] [-y]
+```
+
+### Command-line arguments
+
+- `-h, --help`: Show help message
+- `-d, --directory`: Root directory to search for git repositories (default: current directory)
+- `-p, --parallel`: Update repositories in parallel
+- `-m, --max-workers`: Maximum number of parallel workers (default: 5)
+- `-v, --verbose`: Verbose output
+- `-y, --yes`: Answer yes to all prompts
+
+## Examples
+
+Update all repositories in the current directory:
+```bash
+python3 gitdater.py
+```
+
+Update repositories in parallel with verbose output:
+```bash
+python3 gitdater.py -p -v
+```
+
+Update all repositories in a specific directory, automatically accept all prompts:
+```bash
+python3 gitdater.py -d /home/user/pentesting-tools -y
+```
 
 ### Sample Output From "Pentesting Tools" Folder:
 
-	".\credmap" has git dir: "['.git', 'lib', 'output', 'thirdparty', 'websites']"
-	Checking for updates...
-	Already at the latest revision 'f28e46e'.
+```
+Searching for git repositories in /home/user/pentesting-tools...
 
-	".\ntdsxtract" has git dir: "['.git', 'framework', 'ntds']"
-	Checking for updates...
-	Updated to the latest revision '7fa1c8c'.
+Found 42 git repositories.
 
-	".\ntds_decode" has git dir: "['.git']"
-	Checking for updates...
-	Already at the latest revision '080edf2'.
+Checking updates for "/home/user/pentesting-tools/credmap"...
+Already at the latest revision 'f28e46e'.
 
-	".\Panoptic" has git dir: "['.git', 'output', 'thirdparty']"
-	Checking for updates...
-	Already at the latest revision 'b5eae6b'.
+Checking updates for "/home/user/pentesting-tools/ntdsxtract"...
+Updated to the latest revision '7fa1c8c'.
 
-	".\post-exploitation-wiki" has git dir: "['.git', 'images', 'linux', 'mdwiki-0.5.8', 'mobile', 'msf', 'osx', 'otheros', 'references', 'scripting', 'windows']"
-	Checking for updates...
-	Updated to the latest revision 'fa54cab'.
+Checking updates for "/home/user/pentesting-tools/PowerSploit"...
+Updated to the latest revision '262a260'.
 
-	".\PowerSploit" has git dir: "['.git', 'AntivirusBypass', 'CodeExecution', 'Exfiltration', 'Mayhem', 'Persistence', 'Privesc', 'Recon', 'ScriptModification', 'Tests']"
-	Checking for updates...
-	Updated to the latest revision '262a260'.
+Checking updates for "/home/user/pentesting-tools/sqlmap"...
+Updated to the latest revision '7cca56e'.
 
-	".\quickjack" has git dir: "['.git']"
-	Checking for updates...
-	Updated to the latest revision 'eb3263f'.
-
-	".\Responder-Windows" has git dir: "['.git', 'binaries', 'src']"
-	Checking for updates...
-	Already at the latest revision '4027c1a'.
-
-	".\RFIDler" has git dir: "['.git', 'datasheets', 'firmware', 'Hardware', 'linux-support', 'python', 'windows driver', 'windows-src']"
-	Checking for updates...
-	Updated to the latest revision '66e8715'.
-
-	".\smbexec" has git dir: "['.git', 'certs', 'lib', 'patches', 'powershell', 'progs', 'sources']"
-	Checking for updates...
-	Already at the latest revision '7827616'.
-
-	".\smbmap" has git dir: "['.git']"
-	Checking for updates...
-	Already at the latest revision '57b0176'.
-
-	".\sqlmap" has git dir: "['.git', 'doc', 'extra', 'lib', 'plugins', 'procs', 'shell', 'tamper', 'thirdparty', 'txt', 'udf', 'waf', 'xml']"
-	Checking for updates...
-	Updated to the latest revision '7cca56e'.
-
-	".\UACME" has git dir: "['.git', 'Compiled', 'Source']"
-	Checking for updates...
-	Updated to the latest revision 'b908d03'.
-
-	".\unicorn" has git dir: "['.git']"
-	Checking for updates...
-	Updated to the latest revision 'c44044f'.
-
-	".\Vulndev" has git dir: "['.git', 'MS14-012', 'MS14-070']"
-	Checking for updates...
-	Updated to the latest revision 'e737104'.
+Completed updating 42 repositories.
+```
